@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './dynami-page.component.html',
@@ -19,6 +19,9 @@ public myForm:FormGroup = this.form.group({
       ['Death Stranding',Validators.required]
     ])
 });
+
+
+public newFavorite: FormControl = new FormControl('',[ Validators.required ])
 
 constructor (private form: FormBuilder){}
 
@@ -67,6 +70,25 @@ deleteArray(index:number) {
   this.favoriteGames.removeAt(index)
 }
 
+// agregar un elemento del arreglo
+addToFavorites(){
+  if( this.newFavorite.invalid) return
+  
+  const newGame = this.newFavorite.value;
+
+  // forma 1 - cuando no se estra trabajando con el FormBuilderr
+  // this.favoriteGames.push(  new FormControl( newGame, Validators.required ) );
+
+  // Forma 2 
+
+  this.favoriteGames.push(
+    this.form.control(newGame,Validators.required)
+  );
+
+  this.newFavorite.reset();
+}
+
+
 
 onSubmit(){
 
@@ -75,6 +97,9 @@ onSubmit(){
     return;
   }
   console.log(this.myForm.value);
+
+  // ayuda a limpiar el arreglo cuando se guarda la informacion
+  (this.myForm.controls['favoriteGame'] as FormArray ) = this.form.array([]);
   this.myForm.reset();
 }
 
