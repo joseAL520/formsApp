@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as custonValidator from '../../../shared/validators/validataros.helpers';
+// import * as custonValidator from '../../../shared/validators/validataros.helpers';
+import { ValidatorService } from '../../../shared/services/validator.service';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -10,9 +11,9 @@ export class RegisterPageComponent {
 
 
   public myForm:FormGroup = this.form.group({
-      name:      ['',[Validators.required ,Validators.pattern( custonValidator.firstNameAndLastnamePattern ) ]],
-      email:     ['',[Validators.required, Validators.pattern( custonValidator.emailPattern ) ]],
-      username:  ['',[Validators.required, custonValidator.cantBeSrider]],
+      name:      ['',[Validators.required ,Validators.pattern( this.validatorService.firstNameAndLastnamePattern ) ]],
+      email:     ['',[Validators.required, Validators.pattern( this.validatorService.emailPattern ) ]],
+      username:  ['',[Validators.required, this.validatorService.cantBeSrider ]],
       password:  ['',[Validators.required, Validators.minLength(6)]],
       password2: ['',[Validators.required]]
 
@@ -20,21 +21,20 @@ export class RegisterPageComponent {
 
   constructor(
     private form: FormBuilder, 
+    private validatorService: ValidatorService
   ){
 
   }
 
 
 
-  isValidField( field: string ): boolean | null {
-    return this.myForm.controls[field].errors
-      && this.myForm.controls[field].touched;
+  isValidField( field: string ) {
+      return this.validatorService.isValiField( this.myForm , field);
   }
  
   onSave(){
     
     if(this.myForm.invalid){
-      console.log(this.myForm.value);1
       this.myForm.markAllAsTouched();
       return;
     }
