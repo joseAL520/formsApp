@@ -18,20 +18,23 @@ export class BasicPageComponent  implements OnInit {
   //TODO: forma 2
   public myForm:FormGroup = this.fb.group({
     name:['',[Validators.required, Validators.minLength(3)]] ,
-    price: [0, [Validators.required, Validators.minLength(0)]],
-    inStoraje: [0,[Validators.required, Validators.minLength(0)]],
+    price: [0, [Validators.required, Validators.minLength(0), Validators.min(0)]],
+    inStoraje: [0,[Validators.required, Validators.minLength(0),Validators.min(0)]],
   })
 
 
-  // public rtx  = {
-  //   name:'rtx',
-  //   price:10,
-  //   inStoraje:20,
-  // }
+  public rtx  = {
+    name:'rtx',
+    price:10,
+    inStoraje:20,
+  }
 
   constructor (private fb: FormBuilder){}
  
  
+  isValidField( field:string, typeError:string){
+     return this.myForm.controls[field].getError(typeError) && this.myForm.controls[field].touched
+  }
   
 
 
@@ -46,14 +49,11 @@ export class BasicPageComponent  implements OnInit {
 
     // receter el formulario 
     // nota: puedes dejar valores por defecto
-    this.myForm.reset({
-      price:0,
-      inStoraje:0
-    })
+    this.myForm.reset()
   }
 
   ngOnInit(): void {
-    this.myForm.reset( )
+    this.myForm.reset( this.rtx )
   }
 
 

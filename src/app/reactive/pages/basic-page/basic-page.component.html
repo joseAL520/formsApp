@@ -16,14 +16,15 @@
                            formControlName="name"
                            placeholder="Nombre del producto">
                    
+                <!-- forma 2 -->
                     <span 
-                        *ngIf="myForm.controls['name'].getError('required') && myForm.controls['name'].touched"
+                        *ngIf="isValidField('name','required')"
                         class="form-text text-danger">
                         Este campo es Requerido
                     </span>
 
                     <span
-                    *ngIf="myForm.controls['name'].getError('minlength') && myForm.controls['name'].touched"
+                    *ngIf="isValidField('name','minlength')"
                         class="form-text text-danger">
                         <!-- Debe de ser de 3 letras -->
                         Debe de ser de 3 letras
@@ -40,9 +41,18 @@
                            class="form-control"
                            formControlName="price"
                            placeholder="Precio del producto">
-                    <span class="form-text text-danger">
-                        El precio debe de ser 0 o mayor
+                    <span 
+                        *ngIf="isValidField('price','required')"
+                        class="form-text text-danger">
+                        Este campo es Requerido
                     </span>
+
+                    <span 
+                    *ngIf="isValidField('price','min')"
+                    class="form-text text-danger">
+                    El precio debe de ser 0 o mayor
+                    </span>
+
                 </div>
             </div>
 
@@ -55,7 +65,15 @@
                            formControlName="inStoraje"
                            placeholder="Existencias del producto">
 
-                    <span class="form-text text-danger">
+
+                    <span
+                    *ngIf="isValidField('inStoraje','required')" 
+                        class="form-text text-danger">
+                        Este campo es Requerido
+                    </span>
+                    <span
+                    *ngIf="isValidField('inStoraje','min')" 
+                        class="form-text text-danger">
                          Las existencias deben de ser 0 o mayor
                     </span>
                 </div>
