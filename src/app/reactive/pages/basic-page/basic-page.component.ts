@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validator, Validators } from '@ang
   templateUrl: './basic-page.component.html',
   styles: ``
 })
-export class BasicPageComponent  {
+export class BasicPageComponent  implements OnInit {
 
   //TODO: forma 1 
   // public myForm: FormGroup = new FormGroup({
@@ -23,8 +23,14 @@ export class BasicPageComponent  {
   })
 
 
-  constructor (private fb: FormBuilder){}
+  public rtx  = {
+    name:'rtx',
+    price:10,
+    inStoraje:20,
+  }
 
+  constructor (private fb: FormBuilder){}
+ 
  
   
 
@@ -33,9 +39,17 @@ export class BasicPageComponent  {
     if(this.myForm.invalid) return;
     console.log(this.myForm.value)
 
-    
+    // receter el formulario 
+    // nota: puedes dejar valores por defecto
+    this.myForm.reset({
+      price:0,
+      inStoraje:0
+    })
   }
 
+  ngOnInit(): void {
+    this.myForm.reset( this.rtx)
+  }
 
 
 
