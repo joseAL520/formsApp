@@ -23,11 +23,11 @@ export class BasicPageComponent  implements OnInit {
   })
 
 
-  public rtx  = {
-    name:'rtx',
-    price:10,
-    inStoraje:20,
-  }
+  // public rtx  = {
+  //   name:'rtx',
+  //   price:10,
+  //   inStoraje:20,
+  // }
 
   constructor (private fb: FormBuilder){}
  
@@ -36,7 +36,12 @@ export class BasicPageComponent  implements OnInit {
 
 
   onSave():void{
-    if(this.myForm.invalid) return;
+    // esta forma ayuda a dispara nuestras validaciones
+    if(this.myForm.invalid) {
+
+      this.myForm.markAllAsTouched();
+      return;
+    }
     console.log(this.myForm.value)
 
     // receter el formulario 
@@ -48,7 +53,7 @@ export class BasicPageComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    this.myForm.reset( this.rtx)
+    this.myForm.reset( )
   }
 
 
