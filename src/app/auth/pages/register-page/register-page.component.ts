@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as custonValidator from '../../../shared/validators/validataros.helpers';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -9,9 +10,9 @@ export class RegisterPageComponent {
 
 
   public myForm:FormGroup = this.form.group({
-      name:      ['',[Validators.required]],
-      email:     ['',[Validators.required, ]],
-      username:  ['',[Validators.required]],
+      name:      ['',[Validators.required ,Validators.pattern( custonValidator.firstNameAndLastnamePattern ) ]],
+      email:     ['',[Validators.required, Validators.pattern( custonValidator.emailPattern ) ]],
+      username:  ['',[Validators.required, custonValidator.cantBeSrider]],
       password:  ['',[Validators.required, Validators.minLength(6)]],
       password2: ['',[Validators.required]]
 
