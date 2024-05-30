@@ -60,6 +60,14 @@ getFieldError( field: string ): string | null {
   return null;
 }
 
+
+
+// eliminar un elemento del arreglo
+deleteArray(index:number) {
+  this.favoriteGames.removeAt(index)
+}
+
+
 onSubmit(){
 
   if( this.myForm.invalid ) {
