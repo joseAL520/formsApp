@@ -18,6 +18,10 @@ export class RegisterPageComponent {
       password:  ['',[Validators.required, Validators.minLength(6)]],
       password2: ['',[Validators.required]]
 
+  },{
+    Validators:[
+        this.validatorService.ifFieldOneEquaFieldTwo('password','password2')
+    ]
   })
 
   constructor(
